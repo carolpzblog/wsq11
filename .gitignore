@@ -1,0 +1,59 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+#include "BigIntegerLibrary.hh"
+
+bool checking (BigInteger c){
+
+  string d=bigIntegerToString(c);
+  reverse (d.begin(), d.end());
+  BigInteger e=stringToBigInteger(d);
+  return (c == e);
+}
+
+BigInteger notPalindrome(BigInteger c){
+
+  for(int n=0; n<=30 && checking(c) == false; n++)
+  {
+    string a=bigIntegerToString(c);
+    reverse(a.begin(), a.end());
+    BigInteger b=stringToBigInteger(a);
+    c=c+b;
+  }
+
+return c;
+}
+
+int main (){
+int cpali=0, clich=0, cbec=0;
+int x,y;
+
+BigInteger num;
+cout<<"introduce the lower bound: "<<endl;
+cin>>x;
+
+cout<<"introduce the upper bound: "<<endl;
+cin>>y;
+
+  for (BigInteger n=x; n<=y; n = n + 1){
+    if(checking(n)==true){
+      cpali++;
+    } else {
+      num = notPalindrome(n);
+      if(checking(num)==true) {
+        cbec++;
+      } else {
+      cout <<"The Lycherel number: " <<n<< endl;
+      clich++;
+      }
+    }
+
+  }
+cout<<"Here´s the analysis of the range you gave me: "<<endl;
+cout<<"I found "<<cpali<<" natural palindromes"<<endl;
+cout<<"I found "<<cbec<<" numbers that eventually become palindromes"<<endl;
+cout<<"I found "<<clich<<" lycherel numbers"<<endl;
+  return 0;
+}
